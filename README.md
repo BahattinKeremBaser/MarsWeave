@@ -171,6 +171,7 @@ Every layer carries an honest status. Layers that are not loaded are listed as s
 ---
 
 ## 10. Installation & Running Locally
+Go to the official Git download page: visit [git-scm.com/download/win](git-scm.com/download/win) and download the 64-bit Git for Windows (or macOS) installer.
 
 ```bash
 # Clone the repository
