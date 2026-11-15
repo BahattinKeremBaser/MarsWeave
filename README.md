@@ -175,8 +175,6 @@ Go to the official Git download page: visit [git-scm.com/download/win](git-scm.c
 
 ```bash
 # Clone the repository
-git clone https://github.com/BahattinKeremBaser/MarsWeave
-cd MarsWeave
 
 # Install dependencies
 npm install
@@ -192,3 +190,5 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 11. Space Apps Challenge Presentation Statement
 * **Central Statement:** *"The best route is mission-dependent."*
 * **Mission Loop:** `OBSERVE → UNDERSTAND → PLAN → WALK → DISCOVER → ADAPT`
+## 12. SI Usage
+* **SI use. Code and text for this project were developed with the help of an SI assistant (Claude, by Anthropic). All *v**data come from the NASA, USGS and partner archives listed below; no data or images were SI-generated.*
