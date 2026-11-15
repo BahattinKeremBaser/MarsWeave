@@ -19,8 +19,10 @@ const ROWS: { label: string; layerId: string }[] = [
 const BADGE: Record<DataStatus, string> = {
   'REAL NASA ARCHIVE': 'bg-emerald-950 text-emerald-300 border-emerald-800/40',
   'DERIVED': 'bg-sky-950 text-sky-300 border-sky-800/40',
+  'PUBLISHED': 'bg-yellow-950 text-yellow-300 border-yellow-800/40',
   'MODELLED': 'bg-amber-950 text-amber-300 border-amber-800/40',
   'SIMULATED': 'bg-purple-950 text-purple-300 border-purple-800/40',
+  'NOT LOADED': 'bg-gray-900 text-gray-400 border-gray-700/60',
 };
 
 export const CellSourceTable: React.FC = () => {

@@ -20,7 +20,7 @@ export const NasaDataPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState<string>('ALL');
 
-  const statuses = ['ALL', 'REAL NASA ARCHIVE', 'DERIVED', 'MODELLED', 'SIMULATED'];
+  const statuses = ['ALL', 'REAL NASA ARCHIVE', 'DERIVED', 'PUBLISHED', 'MODELLED', 'SIMULATED', 'NOT LOADED'];
 
   const filteredEntries = NASA_PROVENANCE_REGISTRY.filter(entry => {
     const matchesSearch =
@@ -62,7 +62,7 @@ export const NasaDataPage: React.FC = () => {
           <ul className="text-sm text-[#c4cad6] space-y-2 font-sans">
             <li><span className="text-emerald-400 font-mono text-xs mr-2">REAL</span>
               Terrain height (USGS MOLA-HRSC blended DEM, 200 m), the 16 x 16 km window; slope, routes and the astronaut view are computed from it.
-              {hasReal('themis_ti') && ' Thermal inertia: USGS THEMIS quantitative mosaic (100 m).'}
+              {hasReal('themis_ti') && ' Thermal inertia: USGS THEMIS quantitative mosaic (100 m), display only because the mosaic has a seam.'}
               {hasReal('swim_ice') && ' Subsurface ice: SWIM2 composite (coarse, about 3 km pixels).'}
               {hasReal('hirise_albedo') && ' Ground brightness: USGS Viking MDIM 2.1 mosaic (232 m/px; image brightness, not calibrated albedo).'}
               {hasReal('dust_tau') && ' Dust optical depth: LMD climatology, Mars Year 34 (one 5 x 6 degree cell; converted to surface visible tau with stated assumptions).'}
@@ -90,26 +90,37 @@ export const NasaDataPage: React.FC = () => {
                 Sun position at 14:24 local solar time: computed from latitude, the solar longitude Ls = {SUN_LS_DEG}° (taken from the LMD Mars Year 34 file at sol 342) and the Mars axial tilt: elevation {SUN_DERIVED.elDeg.toFixed(1)}°.
               </li>
             )}
-            <li><span className="text-gray-400 font-mono text-xs mr-2">Model / sim</span>
-              {['the boulder and hazard map (slope based; no HiRISE rock census)', !hasReal('crism_hydration') && 'CRISM minerals (the only CRISM image over the site covers about 16 % of the window)', 'the per-cell relay shadow map', 'the dust-storm timing (a compressed scenario; the tau peak value is real)'].filter(Boolean).join(', ')}
-              {' '}are models or simulations. Each is labelled in the catalog below.
+            <li><span className="text-sky-300 font-mono text-xs mr-2">DERIVED</span>
+              Slope, hazard zones and candidate sites are computed from the real DEM (and the SWIM2 ice index for candidates) by fixed rules. They are not measurements or detections.
             </li>
-            <li><span className="text-gray-400 font-mono text-xs mr-2">SIM</span>Suit oxygen, battery and heart rate are simulated. Walking power, pace, oxygen and battery follow the Minetti et al. (2002) walking-cost equation and NASA Mars PLSS design values (MODELLED); suit mass and heart-rate limits are assumptions.</li>
+            <li><span className="text-amber-300 font-mono text-xs mr-2">MODELLED</span>
+              Walking energy, oxygen and heart rate follow the Minetti et al. (2002) walking-cost equation and NASA Mars PLSS design values; suit mass and heart-rate limits are assumptions.
+            </li>
+            <li><span className="text-purple-300 font-mono text-xs mr-2">SIMULATED</span>
+              The per-cell relay shadow map, the dust-storm timing (a compressed scenario; the tau peak value is real) and suit telemetry.
+            </li>
+            <li><span className="text-gray-400 font-mono text-xs mr-2">NOT LOADED</span>
+              {['CRISM minerals (the only CRISM image over the site covers about 16 % of the window)', 'HiRISE rock counts', 'SHARAD radar profiles (only used indirectly, as an input to SWIM2)'].join(', ')}.
+            </li>
           </ul>
         </div>
 
-        {/* What the four labels mean */}
+        {/* What the labels mean */}
         <div className="bg-[#10141d] border border-[#1c2230] p-5 space-y-3" data-testid="label-glossary">
           <div className="text-[11px] font-mono text-[#c85a32] uppercase tracking-wider">What the labels mean</div>
           <ul className="text-sm text-[#c4cad6] space-y-2 font-sans">
             <li><span className="text-emerald-400 font-mono text-xs mr-2">REAL</span>
               The archived measurement itself, read from a NASA/USGS/PDS product for this location.</li>
             <li><span className="text-sky-300 font-mono text-xs mr-2">DERIVED</span>
-              Computed from a real input with a known physical or geometric formula (for example orbiter passes from the MRO ephemeris, sun position from latitude, season and axial tilt, slope from the DEM). The input is real and the calculation can be repeated.</li>
+              Computed from a real input with a known physical, geometric or rule-based method (for example orbiter passes from the MRO ephemeris, sun position from latitude, season and axial tilt, slope and hazard zones from the DEM, candidate sites by fixed rules). The input is real and the calculation can be repeated.</li>
+            <li><span className="text-yellow-300 font-mono text-xs mr-2">PUBLISHED</span>
+              A value published for another site and used here as a reference (radiation from MSL RAD at Gale, weather from MEDA at Jezero). Not measured at this location.</li>
             <li><span className="text-amber-300 font-mono text-xs mr-2">MODELLED</span>
-              A real reference value or physical assumption applied to this site, but not measured here (for example radiation from MSL RAD at Gale, or weather from MEDA at Jezero). How reliable it is depends on the assumptions.</li>
-            <li><span className="text-gray-400 font-mono text-xs mr-2">SIMULATED</span>
-              Produced by a rule or a scenario with no measurement behind it (for example the boulder map, CRISM minerals, the storm timing, suit telemetry). It exists to demonstrate the decision logic only.</li>
+              Calculated from published equations and design values with stated assumptions (walking energy, oxygen, heart rate). Reliability depends on those assumptions.</li>
+            <li><span className="text-purple-300 font-mono text-xs mr-2">SIMULATED</span>
+              Produced by a scenario with no measurement behind it (the relay shadow map, the storm timing, suit telemetry). It exists to demonstrate the decision logic.</li>
+            <li><span className="text-gray-400 font-mono text-xs mr-2">NOT LOADED</span>
+              Data we have not loaded (CRISM, HiRISE rocks, SHARAD profiles). No claim is made from it.</li>
           </ul>
         </div>
 
@@ -181,8 +192,12 @@ export const NasaDataPage: React.FC = () => {
                         ? 'bg-[#18261e] text-[#48b577] border border-[#234230]'
                         : entry.dataStatus === 'DERIVED'
                         ? 'bg-[#142330] text-[#3898b8] border border-[#1e3448]'
+                        : entry.dataStatus === 'PUBLISHED'
+                        ? 'bg-[#2a2814] text-[#d4c438] border border-[#44401d]'
                         : entry.dataStatus === 'MODELLED'
                         ? 'bg-[#2a2214] text-[#d49938] border border-[#44351d]'
+                        : entry.dataStatus === 'NOT LOADED'
+                        ? 'bg-[#1a1d24] text-[#8b95a5] border border-[#2a3040]'
                         : 'bg-[#25192d] text-[#b37cd6] border border-[#3f274e]'
                     }`}
                   >

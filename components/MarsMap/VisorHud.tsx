@@ -13,6 +13,7 @@ export interface VisorHudProps {
   evaLimitMin: number;
   o2Pct?: number;
   batteryPct?: number;
+  heartRateBpm?: number;
   atRouteEnd: boolean;
   /** 'REAL_MOLA_HRSC' when the elevation grid is the real DEM, otherwise 'SYNTHETIC'. */
   elevationSource: 'REAL_MOLA_HRSC' | 'SYNTHETIC';
@@ -67,6 +68,7 @@ export const VisorHud: React.FC<VisorHudProps> = ({
   evaLimitMin,
   o2Pct,
   batteryPct,
+  heartRateBpm,
   atRouteEnd,
   elevationSource,
   onExit
@@ -136,6 +138,7 @@ export const VisorHud: React.FC<VisorHudProps> = ({
           <Stat label="EVA time left" value={fmtTime(evaRemainingMin)} warn={lowTime} />
           <Stat label="SUIT O2" value={o2Pct !== undefined ? `${o2Pct.toFixed(0)} %` : 'n/a'} tag="SIM" />
           <Stat label="SUIT BATTERY" value={batteryPct !== undefined ? `${batteryPct.toFixed(0)} %` : 'n/a'} tag="SIM" />
+          <Stat label="HEART RATE" value={heartRateBpm !== undefined ? `${Math.round(heartRateBpm)} bpm` : 'n/a'} tag="SIM" />
         </div>
       </div>
 

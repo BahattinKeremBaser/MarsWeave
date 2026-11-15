@@ -19,8 +19,7 @@ import {
 } from 'lucide-react';
 
 import { RouteCandidate } from '../../types/marsweave';
-import { MISSION_BOUNDS, REAL_DEM } from '../../data/arcadiaData';
-import { REAL_PRODUCTS } from '../../data/realProducts';
+import { MISSION_BOUNDS } from '../../data/arcadiaData';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -36,7 +35,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   const rA = routes.find(r => r.id === 'ROUTE_A');
   const rB = routes.find(r => r.id === 'ROUTE_B');
   const rC = routes.find(r => r.id === 'ROUTE_C');
-  const datasetCount = Object.keys(REAL_PRODUCTS).length + (REAL_DEM ? 1 : 0);
   return (
     <div className="flex-1 overflow-y-auto bg-[#0b0d12] text-[#d6d9e0] select-text">
       {/* Top Telemetry Baseline Strip */}
@@ -88,9 +86,9 @@ export const HomePage: React.FC<HomePageProps> = ({
         {/* Technical Data Ribbon */}
         <div className="mt-16 hairline-t hairline-b py-6 grid grid-cols-2 md:grid-cols-4 gap-6 font-mono text-xs">
           <div>
-            <div className="text-[10px] text-[#6b7788] uppercase tracking-wider mb-1">NASA datasets</div>
-            <div className="text-lg font-semibold text-white">{datasetCount} data products</div>
-            <div className="text-[11px] text-[#8b95a5] mt-0.5">MOLA-HRSC DEM, SWIM2, THEMIS, Viking MDIM, LMD dust, NAIF SPICE, RAD/MEDA values</div>
+            <div className="text-[10px] text-[#6b7788] uppercase tracking-wider mb-1">Data products</div>
+            <div className="text-lg font-semibold text-white">5 real, 4 derived</div>
+            <div className="text-[11px] text-[#8b95a5] mt-0.5">Real: MOLA-HRSC DEM, SWIM2, Viking MDIM, LMD dust, THEMIS (display only). Derived: slope and hazards, candidate sites, orbiter passes, sun position. RAD and MEDA are published reference values.</div>
           </div>
           <div>
             <div className="text-[10px] text-[#6b7788] uppercase tracking-wider mb-1">Pathfinding model</div>

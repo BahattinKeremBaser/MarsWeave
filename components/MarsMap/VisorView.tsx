@@ -576,6 +576,7 @@ export const VisorView: React.FC<VisorViewProps> = ({
           evaLimitMin={evaLimitMin}
           o2Pct={astronautTelemetry?.suitO2RemainingPct}
           batteryPct={astronautTelemetry?.suitBatteryRemainingPct}
+          heartRateBpm={astronautTelemetry?.heartRateBpm}
           atRouteEnd={atEnd}
           elevationSource={ELEVATION_SOURCE}
           onExit={onExit}

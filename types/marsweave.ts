@@ -23,7 +23,7 @@ export interface MissionProfile {
   payloadKg: number; // carried equipment, kg (ASSUMPTION-based mobility model, see routeOptimizer.ts)
 }
 
-export type DataStatus = 'REAL NASA ARCHIVE' | 'DERIVED' | 'MODELLED' | 'SIMULATED';
+export type DataStatus = 'REAL NASA ARCHIVE' | 'DERIVED' | 'PUBLISHED' | 'MODELLED' | 'SIMULATED' | 'NOT LOADED';
 
 export interface LayerMetadata {
   id: string;

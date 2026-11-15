@@ -622,7 +622,7 @@ export default function App() {
                     }`}
                   >
                     <Layers className="w-3.5 h-3.5" />
-                    <span>NASA layers</span>
+                    <span>NASA data</span>
                   </button>
                 </div>
 

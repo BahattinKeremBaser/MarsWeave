@@ -79,7 +79,7 @@ export const JuryTourModal: React.FC<JuryTourModalProps> = ({
       title: '2. Routes that depend on the goal',
       tag: 'PLAN',
       description: 'Unlike a plain shortest-path search, MARSWEAVE weighs slope, DEM-derived hazard cells, modelled comms coverage, candidate sampling sites and suit consumables.',
-      highlight: 'Computes Route Alpha (Balanced), Route Beta (Science Yield), and Route Gamma (Direct).',
+      highlight: 'Computes Route Alpha (balanced), Route Beta (via a candidate site), and Route Gamma (shortest distance).',
       actionText: 'Plan routes',
       onApplyStep: () => {
         onTriggerPlanEva();
@@ -116,7 +116,7 @@ export const JuryTourModal: React.FC<JuryTourModalProps> = ({
       title: '6. The report',
       tag: 'Debrief & citations',
       description: 'At the end of the walk, a report lists the route, simulated consumables, the radiation proxy and the outcome, with sources.',
-      highlight: 'Scientific transparency: every layer is labelled REAL, DERIVED, MODELLED or SIMULATED.',
+      highlight: 'Scientific transparency: every layer is labelled REAL, DERIVED, PUBLISHED, MODELLED, SIMULATED or NOT LOADED.',
       actionText: 'View mission report',
       onApplyStep: () => {
         onOpenReport();

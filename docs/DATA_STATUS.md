@@ -80,3 +80,17 @@ Found while checking why Gamma could be longer than Alpha. All three routes now 
 - The astronaut position follows elapsed time along the legs (it used to follow waypoint index).
 - Checked over 270 start/goal/risk/objective combinations: no straight-line fallbacks, every route ends at its goal, Gamma is never longer than Alpha or Beta.
 - Default trip (Habitat Alpha to SCI-04): Alpha 3.51 km / 87.9 min, Beta 8.18 km / 242.3 min, Gamma 3.51 km / 87.9 min.
+
+## v50: app matched to the final presentation
+- Labels now use six statuses, as in the deck: REAL, DERIVED, PUBLISHED, MODELLED, SIMULATED, NOT LOADED.
+- MSL RAD and MEDA reference values: MODELLED -> PUBLISHED. CRISM, HiRISE and SHARAD: now NOT LOADED (HiRISE and SHARAD were shown as REAL although the text said not loaded). SHARAD is only an input to SWIM2.
+- Candidate sites: SIMULATED -> DERIVED (fixed rules on the real DEM and SWIM2; not detections).
+- Relay shadow map: SIMULATED (terrain model). Orbiter passes (MRO, NAIF SPICE) stay DERIVED in the registry.
+- THEMIS is described as display only everywhere (the registry used to say it ranked candidate sites).
+- Layer names: "Boulder & Micro-Hazard Texture" -> "Surface Brightness (Viking MDIM)", "Thermal Inertia & Rock Fraction" -> "Thermal Inertia (THEMIS, display only)", "Surface Radiation Exposure Map" -> "Radiation Dose Rate (published, Gale)".
+- Data page, Problem page, How it works and the jury tour use the same six labels. Dust (LMD, regional) is REAL; only the storm timing is SIMULATED.
+- Astronaut visor shows heart rate next to oxygen and battery (SIM), as the deck says.
+- Default mission checked: Alpha 3.51 km / 87.9 min, Beta 8.18 km / 242.3 min, Gamma 3.51 km / 87.9 min.
+- Home page now says "5 real, 4 derived" data products (per the final presentation table: real = elevation, ice, brightness, dust, THEMIS; derived = slope and hazards, candidate sites, orbiter passes, sun position).
+- NASA data tab (simulator side panel, formerly "NASA layers"): layer names now follow the presentation table (terrain elevation, slope, surface brightness, thermal inertia, subsurface ice index, dust optical depth, radiation dose rate, relay line of sight, hazard zones, candidate sites). All layers behind the 5 real and 4 derived items are ON by default (slope, THEMIS and dust were off; their opacities are low so the map stays readable). Radiation (single site value) and CRISM (not loaded) stay off.
+- NASA data page catalog now has 12 entries (added Viking MDIM 2.1, SWIM2 composite, MARSWEAVE rules) to match the 12 layers in the NASA data tab.

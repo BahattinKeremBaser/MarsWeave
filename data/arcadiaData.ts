@@ -983,7 +983,7 @@ const RAW_PROVENANCE_REGISTRY: DataProvenanceEntry[] = [
     temporalCoverage: '2001 - Present',
     dataStatus: 'REAL NASA ARCHIVE',
     confidence: 'HIGH',
-    usedInMarsweaveFor: 'Thermal-inertia layer (USGS THEMIS mosaic) used to rank candidate sites.',
+    usedInMarsweaveFor: 'Thermal-inertia layer (USGS THEMIS mosaic), DISPLAY ONLY. The mosaic has a seam, so it is not used in routing, hazards or candidate selection.',
     scientificHonestyNotes: 'The mosaic is a published USGS product (Fergason et al. 2006); a value is a 100 m pixel average, not a spot measurement.'
   },
   {
@@ -1041,6 +1041,48 @@ const RAW_PROVENANCE_REGISTRY: DataProvenanceEntry[] = [
     confidence: 'HIGH',
     usedInMarsweaveFor: 'MRO geometric visibility from NAIF SPICE; the map coverage field is a terrain model.',
     scientificHonestyNotes: 'Geometric visibility only (MRO, elevation above 10 degrees); no link budget, no Odyssey, MAVEN or TGO passes.'
+  },
+  {
+    instrument: 'Viking MDIM 2.1',
+    instrumentFull: 'Mars Digital Image Model 2.1 (Viking Orbiter mosaic)',
+    mission: 'Viking Orbiters',
+    agency: 'NASA / USGS Astrogeology',
+    pdsDatasetId: 'N/A (USGS Astrogeology mosaic, file Mars_Viking_MDIM21_ClrMosaic_global_232m.tif)',
+    spatialResolution: '232 m per pixel',
+    spectralRange: 'Visible image brightness (colorized mosaic)',
+    temporalCoverage: 'Archival (Viking Orbiter imaging)',
+    dataStatus: 'REAL NASA ARCHIVE',
+    confidence: 'MEDIUM',
+    usedInMarsweaveFor: 'Surface brightness layer (colours the ground only).',
+    scientificHonestyNotes: 'Image brightness, not calibrated albedo, and not HiRISE. Individual rocks and boulders are not visible at this resolution.'
+  },
+  {
+    instrument: 'SWIM2 composite',
+    instrumentFull: 'Subsurface Water Ice Mapping, phase 2 composite',
+    mission: 'Multiple orbital datasets (radar, thermal, neutron, geomorphology)',
+    agency: 'NASA / Planetary Science Institute',
+    pdsDatasetId: 'N/A (PSI SWIM2 product, file SWIM2_c0_1.tif)',
+    spatialResolution: '~3 km per pixel (coarse)',
+    spectralRange: 'Ice-consistency index combining several lines of evidence',
+    temporalCoverage: 'Archival composite',
+    dataStatus: 'REAL NASA ARCHIVE',
+    confidence: 'MEDIUM',
+    usedInMarsweaveFor: 'Subsurface ice index: used for the Water & ice goal and to pick candidate site SCI-04.',
+    scientificHonestyNotes: 'Only about 6 x 8 cells cover the window, so it ranks areas; it does not locate or size a deposit. SHARAD is one of its inputs.'
+  },
+  {
+    instrument: 'MARSWEAVE rules',
+    instrumentFull: 'Slope, hazard zones and candidate sites (fixed rules)',
+    mission: 'Computed in-app from MOLA-HRSC and SWIM2',
+    agency: 'Sirius Team',
+    pdsDatasetId: 'N/A (computed in-app)',
+    spatialResolution: '~322 m cells (50 x 50 grid)',
+    spectralRange: 'Elevation and ice index',
+    temporalCoverage: 'N/A',
+    dataStatus: 'DERIVED',
+    confidence: 'MEDIUM',
+    usedInMarsweaveFor: 'Slope, hazard zones (clusters of steep or rough cells) and the five candidate sites (SCI-04, SCI-02, SCI-11, SCI-05, SCI-06).',
+    scientificHonestyNotes: 'Rule-based results, not measurements or detections. Boulders are not resolved at this resolution; roughness is only a proxy.'
   }
 ];
 
@@ -1050,7 +1092,7 @@ const RAW_PROVENANCE_REGISTRY: DataProvenanceEntry[] = [
 const RAW_DATA_LAYERS: LayerMetadata[] = [
   {
     id: 'base',
-    name: 'Mars Surface Base Imagery',
+    name: 'Base map (rendered from elevation)',
     instrument: 'CTX / Viking MDIM 2.1',
     mission: 'NASA MRO & Viking',
     dataType: 'REAL NASA ARCHIVE',
@@ -1064,7 +1106,7 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
   },
   {
     id: 'mola_elevation',
-    name: 'Topography & Hillshade',
+    name: 'Terrain elevation (MOLA-HRSC)',
     instrument: 'MOLA',
     mission: 'Mars Global Surveyor',
     dataType: 'REAL NASA ARCHIVE',
@@ -1078,7 +1120,7 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
   },
   {
     id: 'slope',
-    name: 'Slope Gradient Analysis',
+    name: 'Slope (derived from the DEM)',
     instrument: 'Derived from MOLA / HRSC',
     mission: 'NASA / ESA',
     dataType: 'DERIVED',
@@ -1087,12 +1129,12 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
     confidence: 'HIGH',
     description: 'Terrain steepness computed from the DEM. The planner slope limit comes from the walking-cost model, not from a fixed 15° or 25° threshold.',
     color: '#f59e0b',
-    visible: false,
-    opacity: 0.65
+    visible: true,
+    opacity: 0.40
   },
   {
     id: 'hirise_texture',
-    name: 'Boulder & Micro-Hazard Texture',
+    name: 'Surface brightness (Viking MDIM)',
     instrument: 'HiRISE',
     mission: 'Mars Reconnaissance Orbiter',
     dataType: 'REAL NASA ARCHIVE',
@@ -1106,7 +1148,7 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
   },
   {
     id: 'themis_thermal',
-    name: 'Thermal Inertia & Rock Fraction',
+    name: 'Thermal inertia (THEMIS, display only)',
     instrument: 'THEMIS',
     mission: '2001 Mars Odyssey',
     dataType: 'REAL NASA ARCHIVE',
@@ -1115,8 +1157,8 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
     confidence: 'HIGH',
     description: 'THEMIS thermal inertia: higher values mean a more rock-like surface, lower values loose dust.',
     color: '#ef4444',
-    visible: false,
-    opacity: 0.60
+    visible: true,
+    opacity: 0.30
   },
   {
     id: 'crism_minerals',
@@ -1134,7 +1176,7 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
   },
   {
     id: 'sharad_ice',
-    name: 'Ice-consistency index (SWIM2)',
+    name: 'Subsurface ice index (SWIM2)',
     instrument: 'SWIM2 composite',
     mission: 'Mars Reconnaissance Orbiter (SHARAD and other datasets)',
     dataType: 'REAL NASA ARCHIVE',
@@ -1148,7 +1190,7 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
   },
   {
     id: 'atmosphere_dust',
-    name: 'Atmospheric Dust Opacity (tau)',
+    name: 'Dust optical depth (LMD, Mars Year 34)',
     instrument: 'MCS / MARCI',
     mission: 'Mars Reconnaissance Orbiter',
     dataType: 'MODELLED',
@@ -1157,12 +1199,12 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
     confidence: 'MEDIUM',
     description: 'Column dust optical depth from the LMD climatology; the storm scenario is an input, not a forecast.',
     color: '#d97706',
-    visible: false,
-    opacity: 0.50
+    visible: true,
+    opacity: 0.30
   },
   {
     id: 'radiation_rad',
-    name: 'Surface Radiation Exposure Map',
+    name: 'Radiation dose rate (published, Gale)',
     instrument: 'MSL RAD Calibration',
     mission: 'Mars Science Laboratory',
     dataType: 'DERIVED',
@@ -1176,7 +1218,7 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
   },
   {
     id: 'relay_comms',
-    name: 'Mars Relay Network Line-of-Sight',
+    name: 'Relay line of sight (MRO passes + shadow map)',
     instrument: 'MRO / Odyssey / TGO',
     mission: 'NASA / ESA',
     dataType: 'SIMULATED',
@@ -1190,7 +1232,7 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
   },
   {
     id: 'hazards',
-    name: 'Terrain Hazard Zones',
+    name: 'Hazard zones (derived from slope)',
     instrument: 'MARSWEAVE Risk Model',
     mission: 'Multi-Mission Fusion',
     dataType: 'DERIVED',
@@ -1204,7 +1246,7 @@ const RAW_DATA_LAYERS: LayerMetadata[] = [
   },
   {
     id: 'science_targets',
-    name: 'Candidate Sampling Sites',
+    name: 'Candidate sites (rule-picked)',
     instrument: 'MARSWEAVE Science Engine',
     mission: 'Heterogeneous Fusion',
     dataType: 'DERIVED',
@@ -1246,8 +1288,10 @@ export const INITIAL_ENVIRONMENTAL_CONDITIONS: EnvironmentalConditions = {
 export const STATUS_DEFINITIONS: Record<DataStatus, string> = {
   'REAL NASA ARCHIVE': 'Values read directly from a NASA/partner data product (cited in REFERENCES.md).',
   'DERIVED': 'Computed by MARSWEAVE from a REAL layer (for example slope from elevation).',
+  'PUBLISHED': 'Published reference values from a mission paper or data release, used as a proxy. Not measured at this site.',
   'MODELLED': 'Parameterised from published values or physics. Not a spatial measurement at this site.',
   'SIMULATED': 'Illustrative placeholder. NOT NASA data for this location.',
+  'NOT LOADED': 'Not loaded in this build. No claim is made from it.',
 };
 
 export interface LayerTruth {
@@ -1294,10 +1338,10 @@ export const LAYER_TRUTH: Record<string, LayerTruth> = {
     status: hasReal('themis_ti') ? 'REAL NASA ARCHIVE' : 'SIMULATED',
     source: hasReal('themis_ti') ? String(REAL_PRODUCTS.themis_ti?.source) : 'Placeholder',
     resolution: hasReal('themis_ti') ? '100 m/px, resampled to the app grid' : 'not retrieved',
-    note: hasReal('themis_ti') ? 'Real THEMIS thermal inertia (tiu); absolute accuracy about 20 %. CAUTION: the window has a sharp straight-edged jump (about 110 to 900 tiu) that may be a mosaic seam; not used for routing.' : 'No THEMIS thermal inertia data is loaded.',
+    note: hasReal('themis_ti') ? 'Real THEMIS thermal inertia (tiu); absolute accuracy about 20 %. CAUTION: the window has a sharp straight-edged jump (about 110 to 900 tiu) that may be a mosaic seam. DISPLAY ONLY: not used for routing, hazards or candidate selection.' : 'No THEMIS thermal inertia data is loaded.',
   },
   crism_minerals: {
-    status: hasReal('crism_hydration') ? 'REAL NASA ARCHIVE' : 'SIMULATED',
+    status: hasReal('crism_hydration') ? 'REAL NASA ARCHIVE' : 'NOT LOADED',
     source: hasReal('crism_hydration') ? String(REAL_PRODUCTS.crism_hydration?.source) : 'Placeholder',
     resolution: hasReal('crism_hydration') ? 'summary-parameter map, resampled' : 'not retrieved',
     note: hasReal('crism_hydration') ? 'Real CRISM summary parameter. A band-depth value is evidence of hydration, not a mineral identification by itself.' : 'No CRISM cubes are loaded. Mineral labels are illustrative.',
@@ -1315,16 +1359,16 @@ export const LAYER_TRUTH: Record<string, LayerTruth> = {
     note: hasReal('dust_tau') ? 'Real LMD dust climatology, Mars Year 34 (variable cdod610, MCS/TES/THEMIS retrievals), one 5 x 6 degree cell around the site. Converted to a surface visible optical depth with an assumed pressure scaling and a 2.6 visible/IR factor, so the absolute value is approximate. Not a live feed.' : 'Not a live MCS/MARCI product.',
   },
   radiation_rad: {
-    status: hasReal('rad') && !isPublished('rad') ? 'REAL NASA ARCHIVE' : 'MODELLED',
+    status: hasReal('rad') ? (isPublished('rad') ? 'PUBLISHED' : 'REAL NASA ARCHIVE') : 'MODELLED',
     source: hasReal('rad') ? String(REAL_PRODUCTS.rad?.source) : 'Published MSL RAD surface dose-equivalent rate at Gale (Hassler et al. 2014), applied as a proxy',
     resolution: 'single site value, not spatial',
     note: 'Dose scales with atmospheric shielding and solar activity; treat as order-of-magnitude for Arcadia.',
   },
   relay_comms: {
-    status: hasReal('relay_passes') ? 'DERIVED' : 'SIMULATED',
+    status: 'SIMULATED',
     source: hasReal('relay_passes') ? String(REAL_PRODUCTS.relay_passes?.source) : 'Placeholder coverage field',
-    resolution: hasReal('relay_passes') ? 'pass list from NAIF SPICE; the map coverage field is still modelled' : 'not computed from orbit ephemerides',
-    note: hasReal('relay_passes') ? 'Real pass geometry from SPICE kernels (DERIVED). The per-cell shadow map is still a terrain model.' : 'No real MRO/TGO/MAVEN pass prediction is performed.',
+    resolution: hasReal('relay_passes') ? 'per-cell shadow map (terrain model); MRO pass list from NAIF SPICE is DERIVED' : 'not computed from orbit ephemerides',
+    note: hasReal('relay_passes') ? 'The per-cell relay shadow map is a SIMULATED terrain model. The MRO pass list behind it is DERIVED from NAIF SPICE kernels (see Orbiter passes in the data registry).' : 'No real MRO/TGO/MAVEN pass prediction is performed.',
   },
   hazards: {
     status: REAL_DEM ? 'DERIVED' : 'SIMULATED',
@@ -1337,34 +1381,34 @@ export const LAYER_TRUTH: Record<string, LayerTruth> = {
       : 'Run scripts/fetch_arcadia_dem.py to derive hazards from real terrain instead of the synthetic model.',
   },
   science_targets: {
-    status: 'SIMULATED',
+    status: 'DERIVED',
     source: REAL_DEM
-      ? 'Illustrative targets, positions snapped to real-DEM morphology by a rule'
+      ? 'Rule-picked from the real DEM and SWIM2 ice index (fixed rules, not detections)'
       : 'Hand-authored illustrative targets',
     resolution: 'discrete points',
-    note: 'Targets are NOT derived from CRISM/SHARAD detections; only their position follows the terrain (when a real DEM is loaded).',
+    note: 'Candidate sites are picked by fixed rules from the real DEM and the SWIM2 ice index. They are not detections and are not derived from CRISM or SHARAD observations.',
   },
 };
 
 /** Status for a registry instrument (by its `instrument` field). */
 const REGISTRY_TRUTH: Record<string, { status: DataStatus; note: string }> = {
   'MOLA': { status: REAL_DEM ? 'REAL NASA ARCHIVE' : 'SIMULATED', note: LAYER_TRUTH.mola_elevation.note },
-  'HiRISE': { status: LAYER_TRUTH.hirise_texture.status, note: LAYER_TRUTH.hirise_texture.note },
-  'SHARAD': { status: LAYER_TRUTH.sharad_ice.status, note: LAYER_TRUTH.sharad_ice.note },
+  'HiRISE': { status: 'NOT LOADED', note: 'No HiRISE boulder census or imagery is loaded. Hazard zones are derived from DEM slope and roughness. The ground brightness layer is the Viking MDIM mosaic, not HiRISE.' },
+  'SHARAD': { status: 'NOT LOADED', note: 'SHARAD radar profiles are not loaded directly. They are one input to the SWIM2 ice composite used by the ice layer (~3 km pixels).' },
   'CRISM': { status: LAYER_TRUTH.crism_minerals.status, note: LAYER_TRUTH.crism_minerals.note },
   'THEMIS': { status: LAYER_TRUTH.themis_thermal.status, note: LAYER_TRUTH.themis_thermal.note },
   'MEDA': hasReal('meda') && isPublished('meda')
-    ? { status: 'MODELLED', note: `${realLabel('meda', '')}. Published Jezero values (afternoon air temperature and wind) inform the baseline; Arcadia is not measured.` }
+    ? { status: 'PUBLISHED', note: `${realLabel('meda', '')}. Published Jezero values (afternoon air temperature and wind) inform the baseline; Arcadia is not measured.` }
     : hasReal('meda')
     ? { status: 'REAL NASA ARCHIVE', note: `${realLabel('meda', '')}. In-situ Mars 2020 data at Jezero, not measured at Arcadia.` }
     : { status: 'MODELLED', note: 'Baseline weather values are illustrative, scaled by hand; no MEDA product is read.' },
   'RAD': hasReal('rad') && isPublished('rad')
-    ? { status: 'MODELLED', note: `${realLabel('rad', '')}. Published Gale dose rate used as a proxy; Arcadia dose differs with atmosphere column and solar activity.` }
+    ? { status: 'PUBLISHED', note: `${realLabel('rad', '')}. Published Gale dose rate used as a proxy; Arcadia dose differs with atmosphere column and solar activity.` }
     : hasReal('rad')
     ? { status: 'REAL NASA ARCHIVE', note: `${realLabel('rad', '')}. Measured at Gale Crater; Arcadia dose differs with atmosphere column and solar activity.` }
     : { status: 'MODELLED', note: LAYER_TRUTH.radiation_rad.note },
   'MCS & MARCI': { status: LAYER_TRUTH.atmosphere_dust.status, note: LAYER_TRUTH.atmosphere_dust.note },
-  'Mars Relay Network': { status: LAYER_TRUTH.relay_comms.status, note: LAYER_TRUTH.relay_comms.note },
+  'Mars Relay Network': { status: hasReal('relay_passes') ? 'DERIVED' : 'SIMULATED', note: 'MRO pass geometry is DERIVED from NAIF SPICE kernels. The per-cell relay shadow map built on it is a SIMULATED terrain model.' },
 };
 
 export const NASA_PROVENANCE_REGISTRY: DataProvenanceEntry[] = RAW_PROVENANCE_REGISTRY.map(e => {
@@ -1373,7 +1417,7 @@ export const NASA_PROVENANCE_REGISTRY: DataProvenanceEntry[] = RAW_PROVENANCE_RE
   return {
     ...e,
     dataStatus: t.status,
-    confidence: t.status === 'SIMULATED' ? 'LOW' : t.status === 'MODELLED' ? 'MEDIUM' : e.confidence,
+    confidence: (t.status === 'SIMULATED' || t.status === 'NOT LOADED') ? 'LOW' : (t.status === 'MODELLED' || t.status === 'PUBLISHED') ? 'MEDIUM' : e.confidence,
     scientificHonestyNotes: t.note,
   };
 });
@@ -1385,7 +1429,7 @@ export const INITIAL_DATA_LAYERS: LayerMetadata[] = RAW_DATA_LAYERS.map(l => {
     ...l,
     dataType: t.status,
     resolution: t.resolution,
-    confidence: t.status === 'SIMULATED' ? 'LOW' : t.status === 'MODELLED' ? 'MEDIUM' : l.confidence,
+    confidence: (t.status === 'SIMULATED' || t.status === 'NOT LOADED') ? 'LOW' : (t.status === 'MODELLED' || t.status === 'PUBLISHED') ? 'MEDIUM' : l.confidence,
     description: t.note,
   };
 });

@@ -114,8 +114,12 @@ export const LayerManagerPanel: React.FC<LayerManagerPanelProps> = ({
                         ? 'bg-emerald-950 text-emerald-300 border border-emerald-800/40'
                         : layer.dataType === 'DERIVED'
                         ? 'bg-sky-950 text-sky-300 border border-sky-800/40'
+                        : layer.dataType === 'PUBLISHED'
+                        ? 'bg-yellow-950 text-yellow-300 border border-yellow-800/40'
                         : layer.dataType === 'MODELLED'
                         ? 'bg-amber-950 text-amber-300 border border-amber-800/40'
+                        : layer.dataType === 'NOT LOADED'
+                        ? 'bg-gray-900 text-gray-400 border border-gray-700/60'
                         : 'bg-purple-950 text-purple-300 border border-purple-800/40'
                     }`}
                   >

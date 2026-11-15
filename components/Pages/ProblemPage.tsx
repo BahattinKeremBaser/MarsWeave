@@ -65,14 +65,14 @@ export const ProblemPage: React.FC<ProblemPageProps> = ({ onLaunchSimulator, rou
     {
       title: 'Atmospheric dust',
       instrument: 'LMD / MCD gridded dust climatology (Montabone et al.)',
-      problem: 'Dust optical depth changes visibility and solar power. The dust storm scenario is an input to the what-if engine, not a forecast.',
-      status: 'MODELLED'
+      problem: 'Dust optical depth changes visibility and solar power. The tau series is real (Mars Year 34, one 5 x 6 degree cell, so regional). The dust-storm timing in the what-if engine is a SIMULATED scenario, not a forecast.',
+      status: 'REAL NASA ARCHIVE'
     },
     {
       title: 'Surface radiation',
       instrument: 'RAD (MSL Curiosity), published Gale value',
       problem: 'About 0.64 mSv per day (26.7 µSv/h) was measured at Gale Crater (Hassler et al. 2014). It is used as a proxy; the dose at Arcadia was not measured.',
-      status: 'MODELLED'
+      status: 'PUBLISHED'
     },
     {
       title: 'Suit consumables',

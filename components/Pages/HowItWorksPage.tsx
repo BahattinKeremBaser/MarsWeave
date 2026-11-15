@@ -49,7 +49,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onLaunchSimulato
       subtitle: 'Real products read by this build, with their status',
       icon: <Database className="w-4 h-4 text-[#3898b8]" />,
       dataUsed: 'USGS MOLA-HRSC blended DEM (200 m), SWIM2 ice-consistency composite, THEMIS thermal-inertia mosaic (100 m), Viking MDIM brightness mosaic, LMD/MCD dust climatology, NAIF SPICE MRO kernels. Published values: MSL RAD dose (Gale) and Mars 2020 MEDA samples (Jezero).',
-      derivedOutputs: 'Grids cropped to a 16 km window near 39.3°N, 171.4°W in Arcadia Planitia, each tagged REAL, DERIVED, MODELLED or SIMULATED.',
+      derivedOutputs: 'Grids cropped to a 16 km window near 39.3°N, 171.4°W in Arcadia Planitia, each tagged REAL, DERIVED, PUBLISHED, MODELLED, SIMULATED or NOT LOADED.',
       modelledFactors: 'Nothing is invented at this stage; layers that are not loaded (CRISM, SHARAD, HiRISE boulders) stay marked as not used.',
       uncertainty: 'Each product has its own resolution: SWIM2 pixels are about 3 km, THEMIS 100 m, the DEM 200 m.',
       missionImpact: 'Every later number can be traced to a product or to a flagged assumption.'

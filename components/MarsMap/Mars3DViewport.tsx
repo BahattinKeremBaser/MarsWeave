@@ -2198,6 +2198,7 @@ export const Mars3DViewport: React.FC<Mars3DViewportProps> = ({
           evaLimitMin={evaLimitMin}
           o2Pct={astronautTelemetry?.suitO2RemainingPct}
           batteryPct={astronautTelemetry?.suitBatteryRemainingPct}
+          heartRateBpm={astronautTelemetry?.heartRateBpm}
           atRouteEnd={distanceToEnd(visorPos, selectedRoute) < 40}
           elevationSource={ELEVATION_SOURCE}
           onExit={() => handleApplyCameraPreset('ORBITAL')}
