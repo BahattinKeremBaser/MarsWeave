@@ -471,6 +471,7 @@ export default function App() {
           totalSec={totalDurationSec}
           speed={playbackSpeed}
           onChangeSpeed={setPlaybackSpeed}
+          onSwitchToAdvanced={() => setAdvanced(true)}
         />
       )}
       {currentPage === 'SIMULATOR' && advanced && (

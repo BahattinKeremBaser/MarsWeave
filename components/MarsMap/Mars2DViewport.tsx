@@ -8,6 +8,7 @@
 
 import { CellSourceTable } from './CellSourceTable';
 import MapLegend from './MapLegend';
+import AstronautHint from './AstronautHint';
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import {
   LayerMetadata,
@@ -1043,6 +1044,7 @@ export const Mars2DViewport: React.FC<Mars2DViewportProps> = ({
         )}
       </div>
 
+      {onSwitchToVisor && <AstronautHint started={(astronautTelemetry?.currentDistanceMeters ?? 0) > 0} onOpen={onSwitchToVisor} />}
       <MapLegend low={[135, 65, 45]} high={[210, 110, 75]} className="absolute top-20 left-10 z-20" />
 
       {/* Bottom Left: Scale Bar & True Martian North Compass */}
@@ -1115,6 +1117,9 @@ export const Mars2DViewport: React.FC<Mars2DViewportProps> = ({
             </div>
           )}
 
+          {simple ? (
+            <div className="text-[11px] text-gray-400 pt-1">Easy mode walks to the candidate sites only. Switch to Advanced to pick any point.</div>
+          ) : (
           <div className="flex gap-1.5 pt-1">
             <button
               onClick={() => {
@@ -1135,6 +1140,7 @@ export const Mars2DViewport: React.FC<Mars2DViewportProps> = ({
               Set as start
             </button>
           </div>
+          )}
         </div>
       )}
     </div>

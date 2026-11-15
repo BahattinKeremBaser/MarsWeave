@@ -32,11 +32,13 @@ interface EasySimulatorProps {
   onChangeSpeed: (v: number) => void;
   /** Plain-language reason the walk had to stop early, if any. */
   failureMessage?: string | null;
+  /** Switch the whole app to Advanced mode. */
+  onSwitchToAdvanced?: () => void;
 }
 
 export const EasySimulator: React.FC<EasySimulatorProps> = ({
   map, targets, selectedTargetId, onSelectTarget, route, airMinutes,
-  isPlaying, onTogglePlay, onReset, elapsedSec, totalSec, speed, onChangeSpeed, failureMessage
+  isPlaying, onTogglePlay, onReset, elapsedSec, totalSec, speed, onChangeSpeed, failureMessage, onSwitchToAdvanced
 }) => {
   const pct = totalSec > 0 ? Math.min(100, Math.round((elapsedSec / totalSec) * 100)) : 0;
   const done = pct >= 100;
@@ -119,8 +121,21 @@ export const EasySimulator: React.FC<EasySimulatorProps> = ({
           <p className={`text-sm ${failureMessage ? 'text-rose-300 font-semibold' : 'text-[#9ba5b5]'}`} data-testid="easy-status">{failureMessage ? `❌ ${failureMessage}` : done ? '🎉 You arrived!' : pct > 0 ? `Walking… ${pct}%` : 'Press the green button.'}</p>
         </section>
 
+        {pct > 0 && onSwitchToAdvanced && (
+          <section className="sticky bottom-0 -mx-4 -mb-4 rounded-t-xl border border-[#1e2533] bg-[#121620] p-4 space-y-2 shadow-[0_-8px_20px_rgba(0,0,0,0.5)]" data-testid="easy-more">
+            <p className="text-base font-semibold text-white">Looking for more?</p>
+            <p className="text-sm text-[#9ba5b5]">Advanced mode adds any start and end point, the 3D surface, data layers, sources and the mission report.</p>
+            <button
+              onClick={onSwitchToAdvanced}
+              className="w-full px-4 py-3 bg-[#e25c2b] hover:bg-[#c94f24] text-white font-bold rounded-lg cursor-pointer transition"
+            >
+              Switch to Advanced
+            </button>
+          </section>
+        )}
+
         <p className="text-xs text-[#6b7788] leading-relaxed">
-          The height of the ground is real NASA data (USGS). The places to visit are made-up examples for this game.
+          The height of the ground is real NASA data (USGS). The places to visit are picked by simple rules from that elevation data and an ice-index map. They are candidates, not discoveries.
         </p>
       </aside>
     </div>

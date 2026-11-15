@@ -58,3 +58,10 @@ Walking power, pace, slope limit, oxygen, battery and heart rate follow publishe
 
 ## v45
 - The map legend can be dragged around the map (it stays inside the map area); a click folds it.
+
+## v46
+- Easy mode: the surface inspector no longer shows "Set as target / Set as start" (they did nothing there). Easy mode walks to the candidate sites only; any point can be picked in Advanced.
+
+## v47
+- The "see the walk through the astronaut's eyes" prompt now appears about 4.5 s after the walk starts (it used to show at once), in 2D and 3D.
+- Easy mode: the "Looking for more? / Switch to Advanced" card is pinned to the bottom of the side panel once a walk has started.

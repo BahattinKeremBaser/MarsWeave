@@ -10,6 +10,7 @@
 
 import { CellSourceTable } from './CellSourceTable';
 import MapLegend from './MapLegend';
+import AstronautHint from './AstronautHint';
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import * as THREE from 'three';
 import { demBicubic } from '../../engine/visorRender';
@@ -2454,6 +2455,7 @@ export const Mars3DViewport: React.FC<Mars3DViewportProps> = ({
         </div>
       )}
 
+      <AstronautHint started={elapsedSec > 0} onOpen={() => (onOpenVisor ? onOpenVisor() : handleApplyCameraPreset('VISOR'))} />
       <MapLegend low={[158, 72, 52]} high={[210, 110, 80]} className="absolute top-20 left-10 z-20" />
 
       {/* Bottom Left: 3D True North Compass & Scale Bar */}
