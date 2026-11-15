@@ -174,15 +174,11 @@ Every layer carries an honest status. Layers that are not loaded are listed as s
 
 ```bash
 # Clone the repository
-git clone https://github.com/nasa-space-apps-2026/marsweave.git
+git clone https://github.com/BahattinKeremBaser/MarsWeave
 cd marsweave
 
 # Install dependencies
 npm install
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env and supply your GEMINI_API_KEY (optional, app has offline fallback)
 
 # Run development server
 npm run dev
