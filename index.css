@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: #e1e4ea;
+    background-color: #0b0d12;
+    letter-spacing: -0.01em;
+  }
+
+  code, kbd, samp, pre {
+    font-family: var(--font-mono);
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.02em;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Aerospace Technical Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #0d1017;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3344;
+  border-radius: 1px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3e4a60;
+}
+
+/* Scientific Hairline Dividers */
+.hairline-b {
+  border-bottom: 1px solid #1c2230;
+}
+.hairline-t {
+  border-top: 1px solid #1c2230;
+}
+.hairline-r {
+  border-right: 1px solid #1c2230;
+}
+.hairline-l {
+  border-left: 1px solid #1c2230;
+}
+
+/* Subtle Technical Grid Overlay */
+.technical-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+
+
+/* ---- Calm UI pass (v36): one sans typeface, sentence case, larger small text, quieter chrome ---- */
+.font-mono, .font-heading { font-family: var(--font-sans) !important; font-variant-numeric: tabular-nums; }
+.uppercase { text-transform: none !important; }
+.tracking-wider, .tracking-widest, .tracking-wide, .tracking-tight { letter-spacing: 0 !important; }
+.text-\[7px\], .text-\[8px\] { font-size: 10px !important; }
+.text-\[9px\] { font-size: 11px !important; }
+.text-\[10px\] { font-size: 12px !important; }
+.text-\[11px\] { font-size: 13px !important; }
+button, input, select { font-family: var(--font-sans); }
+/* quieter section headings: neutral instead of a different accent colour per section */
+h3.font-heading, h3.font-heading * { color: #cbd5e1; }

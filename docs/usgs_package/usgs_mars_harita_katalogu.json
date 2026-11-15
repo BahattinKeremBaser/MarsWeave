@@ -1,0 +1,144 @@
+{
+  "yarisma": "2026 NASA Space Apps Challenge - Interplanetary Survival Guide: Martian Map",
+  "yarisma_url": "https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/",
+  "usgs_ana_kaynak_url": "https://astrogeology-usgs.hub.arcgis.com/pages/explore-data",
+  "koordinat_sistemi_notu": "IAU onaylı Mars koordinat sisteminde Planetocentric enlem + Doğu boylamı (East Longitude) veya Planetographic enlem + Batı boylamı (West Longitude) kullanılır; Mars iki eksenli elipsoid (biaxial ellipse) olarak tanımlanır.",
+  "wms_servis_sablonu": "https://webmap.lroc.asu.edu/?BODY=mars&SERVICE=WMS&REQUEST=GetCapabilities",
+  "veri_setleri": [
+    {
+      "id": "usgs_explore_data_hub",
+      "ad": "USGS-NASA Planetary Geologic Mapping GIS Hub - Explore Data",
+      "kategori": "Ana Veri Portalı & CBS Kataloğu",
+      "cozunurluk_olcek": "Küresel ve Bölgesel",
+      "format": "Web Portalı, WMS, WMTS, GeoSTAC",
+      "aciklama": "NASA Space Apps 'Interplanetary Survival Guide: Martian Map' yarışmasında referans gösterilen ana USGS gezegensel veri ve CBS araçları sayfası.",
+      "url": "https://astrogeology-usgs.hub.arcgis.com/pages/explore-data"
+    },
+    {
+      "id": "usgs_interactive_maps_mars",
+      "ad": "USGS-NASA Interactive Maps: Mars",
+      "kategori": "Etkileşimli Jeolojik Harita",
+      "cozunurluk_olcek": "Küresel / Çeşitli Ölçekler (I- ve SIM-Serisi)",
+      "format": "ArcGIS Hub Etkileşimli Harita",
+      "aciklama": "Mars yüzeyine ait etkileşimli jeolojik haritalar ve USGS I- / SIM-serisi harita arama arayüzü.",
+      "url": "https://astrogeology-usgs.hub.arcgis.com/pages/interactive-maps-mars"
+    },
+    {
+      "id": "usgs_sim3292_pdf",
+      "ad": "USGS SIM 3292: Geologic Map of Mars (Harita Paftası PDF)",
+      "kategori": "Küresel Jeoloji Haritası (Doğrudan İndirilebilir PDF)",
+      "cozunurluk_olcek": "1:20,000,000 (Tanaka vd., 2014 - DOI: 10.3133/sim3292)",
+      "format": "PDF",
+      "aciklama": "Viking, MGS, Mars Odyssey ve MRO verilerine dayanan resmi USGS küresel Mars jeoloji haritası paftası.",
+      "url": "http://pubs.usgs.gov/sim/3292/pdf/sim3292_map.pdf"
+    },
+    {
+      "id": "usgs_sim3292_page",
+      "ad": "USGS SIM 3292: Geologic Map of Mars (Yayın ve CBS Paketi Sayfası)",
+      "kategori": "Küresel Jeoloji Haritası & CBS Verisi",
+      "cozunurluk_olcek": "1:20,000,000",
+      "format": "PDF, CBS Paketleri, Katalog",
+      "aciklama": "Tanaka vd. (2014) tarafından hazırlanan 43 sayfalık açıklama kitapçığı ve CBS katmanlarının yer aldığı resmi USGS yayın sayfası.",
+      "url": "https://pubs.usgs.gov/sim/3292/"
+    },
+    {
+      "id": "arcgis_sim3292_layers",
+      "ad": "Mars Geology All Layers 100pct (ArcGIS Online Tile Layer)",
+      "kategori": "CBS Katmanı (Tile Layer)",
+      "cozunurluk_olcek": "1:20,000,000 (SIM 3292 Tabanlı)",
+      "format": "ArcGIS Online Tile Layer",
+      "aciklama": "USGS SIM 3292 Mars jeoloji haritasının tüm katmanlarını içeren ArcGIS Online döşeme (tile) katmanı.",
+      "url": "https://www.arcgis.com/home/item.html?id=db11006b3fc44be7bc6d1e7670751e1b"
+    },
+    {
+      "id": "usgs_mars_nomenclature_gis",
+      "ad": "Gazetteer of Planetary Nomenclature - Mars GIS Downloads (MARS_nomenclature.zip)",
+      "kategori": "Yüzey Şekilleri ve İsimlendirme (Shapefile & KML)",
+      "cozunurluk_olcek": "Küresel (IAU Onaylı Koordinatlar)",
+      "format": "ZIP (ESRI Shapefile & KML)",
+      "aciklama": "Mars üzerindeki tüm resmi krater, vadi, dağ ve yüzey şekli isimlerinin her gece güncellenen Shapefile ve KML indirme sayfası.",
+      "url": "https://planetarynames.wr.usgs.gov/GIS_Downloads"
+    },
+    {
+      "id": "usgs_mars_nomenclature_target",
+      "ad": "Target: Mars - Planetary Names & 1:5M THEMIS / MOLA Haritaları",
+      "kategori": "İsimlendirilmiş Harita Paftaları",
+      "cozunurluk_olcek": "1:5,000,000 THEMIS & MOLA Küresel Görüntü",
+      "format": "PDF Paftalar & ZIP (MARS_nomenclature.zip)",
+      "aciklama": "Mars yüzey isimlerini içeren 1:5 milyon ölçekli THEMIS paftaları, MOLA küresel görüntüsü ve doğrudan MARS_nomenclature.zip erişimi.",
+      "url": "https://planetarynames.wr.usgs.gov/Page/MARS/target"
+    },
+    {
+      "id": "usgs_mars_themis_1to5m",
+      "ad": "Mars 1:5 Million-Scale THEMIS Images Quadrangles",
+      "kategori": "Kızılötesi (IR) Harita Paftaları",
+      "cozunurluk_olcek": "1:5,000,000",
+      "format": "PDF Pafta Serisi",
+      "aciklama": "Mars'ın farklı bölgelerine (quadrangle) ait indirilebilir 1:5 milyon ölçekli THEMIS PDF harita paftaları.",
+      "url": "https://planetarynames.wr.usgs.gov/Page/mars1to5mTHEMIS"
+    },
+    {
+      "id": "astropedia_mars_geologic_map",
+      "ad": "USGS Astropedia - Mars Geologic Map & Basemaps",
+      "kategori": "Altlık Harita (Basemap) & Jeoloji",
+      "cozunurluk_olcek": "200m - 463m / piksel (MOLA, HRSC, Viking, HiRISE)",
+      "format": "GeoTIFF, ISIS Cube, PDS",
+      "aciklama": "Mars 15M Jeoloji Haritası CBS yenilemesi, Mars Viking 232m Renkli Mozaik ve Mars 2020 TRN HiRISE DTM mozaiklerini içeren Astropedia sayfası.",
+      "url": "https://astrogeology.usgs.gov/search/map/mars_geologic_map"
+    },
+    {
+      "id": "astropedia_mola_globe",
+      "ad": "Mars Global Surveyor MOLA Globe (Topografik Kabartma Haritası)",
+      "kategori": "Topografya (DEM / Shaded Relief)",
+      "cozunurluk_olcek": "32 piksel/derece (~1850 m/piksel)",
+      "format": "JPEG / GeoTIFF / PDF",
+      "aciklama": "MOLA Bilim Ekibi tarafından üretilen, IAU onaylı yüzey isimlerini içeren küresel renkli gölgeli kabartma (shaded relief) Mars topografya haritası.",
+      "url": "https://astrogeology.usgs.gov/search/map/mars_global_surveyor_mola_globe"
+    },
+    {
+      "id": "astropedia_viking_globe",
+      "ad": "USGS Astropedia - Mars Viking Globe",
+      "kategori": "Optik Küresel Mozaik",
+      "cozunurluk_olcek": "Küresel",
+      "format": "JPEG / GeoTIFF",
+      "aciklama": "Viking yörünge görüntülerinden doğal renge yakın dengelenmiş ve IAU yüzey isimleriyle etiketlenmiş küresel Mars haritası.",
+      "url": "https://astrogeology.usgs.gov/search/map/mars_viking_globe"
+    },
+    {
+      "id": "astropedia_themis_thermal_30n000e",
+      "ad": "THEMIS Thermal Inertia Mosaic Quantitative (30N000E, 100 m/piksel)",
+      "kategori": "Termal Atalet (Thermal Inertia) Haritası",
+      "cozunurluk_olcek": "100 m/piksel (32-Bit Kantitatif)",
+      "format": "GeoTIFF / PDS",
+      "aciklama": "2001 Mars Odyssey THEMIS gece kızılötesi görüntülerinden üretilen yüksek çözünürlüklü yüzey termal atalet mozaiği (30N 000E).",
+      "url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_30n000e_100mpp"
+    },
+    {
+      "id": "astropedia_themis_thermal_30n060e",
+      "ad": "THEMIS Thermal Inertia Mosaic Quantitative (30N060E, 100 m/piksel)",
+      "kategori": "Termal Atalet (Thermal Inertia) Haritası",
+      "cozunurluk_olcek": "100 m/piksel (32-Bit Kantitatif)",
+      "format": "GeoTIFF / PDS",
+      "aciklama": "HiRISE ve CTX görüntüleriyle birlikte yüzey materyallerinin fiziksel özelliklerini analiz etmek için kullanılan 100 m/piksel THEMIS termal mozaiği.",
+      "url": "https://astrogeology.usgs.gov/search/map/themis_thermal_inertia_mosaic_quantitative_30n060e_100mpp"
+    },
+    {
+      "id": "mars_ode_portal",
+      "ad": "PDS Geosciences Node - Mars Orbital Data Explorer (ODE)",
+      "kategori": "Yörünge Bilim Verileri Arama ve İndirme",
+      "cozunurluk_olcek": "Görev ve Enstrüman Bazlı (CRISM, HiRISE, SHARAD, CTX, MCS)",
+      "format": "PDS, GeoTIFF, Shapefile, Raw/Derived",
+      "aciklama": "MRO, 2001 Mars Odyssey, Mars Global Surveyor, Viking 1-2, Mars Express ve ExoMars TGO görevlerinin verilerini etkileşimli harita üzerinden indirme sistemi.",
+      "url": "https://ode.rsl.wustl.edu/mars/"
+    },
+    {
+      "id": "asu_mars_global_data",
+      "ad": "Arizona State University - Mars Global Data Access",
+      "kategori": "Çoklu Yörünge Aracı Veri Görüntüleyici",
+      "cozunurluk_olcek": "Küresel ve Bölgesel",
+      "format": "Web Haritası & Image Explorer (Viking, MOC, THEMIS, CTX, HiRISE, CRISM, OMEGA, HRSC/SRC)",
+      "aciklama": "Mars yörünge araçlarından elde edilen açık erişimli görüntü ve tayf verilerini tek noktadan aramayı sağlayan ASU portalı.",
+      "url": "https://global-data.mars.asu.edu/"
+    }
+  ]
+}

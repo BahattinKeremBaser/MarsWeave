@@ -1,0 +1,224 @@
+{
+ "source": "Published values (not read from PDS data files): Mars 2020 MEDA, Jezero crater, 23 sampled sol/time points",
+ "citation": "Rodriguez-Manfredi, J. A., et al. (2023), Nature Geoscience 16, 19-28; Zorzano, M.-P., et al. (2024), Scientific Reports 14, 7175; Lemmon, M. T., et al. (2022), GRL 49, e2022GL100126",
+ "license": "Published literature values (cite the papers)",
+ "retrievedUtc": "2026-11-14T11:12:26Z",
+ "kind": "published_literature",
+ "meanTempK": 224.1,
+ "meanPressurePa": 712.4,
+ "meanWindMs": 4.15,
+ "afternoonN": 5,
+ "afternoonAirTempK": 245.0,
+ "afternoonWindMedianMs": 6.0,
+ "note": "air temperature at 0.84 m; the means are over 23 scattered samples, NOT a diurnal mean",
+ "scopeNote": "JEZERO REFERENCE, PUBLISHED SAMPLES - not measured at Arcadia",
+ "series": [
+  {
+   "sol": 120,
+   "lmst": "16:25:55",
+   "lsDeg": 62.07,
+   "temperatureK": 245.0,
+   "pressurePa": 758.0,
+   "windSpeedMs": 5.5,
+   "h2oVmrPpm": 60.0
+  },
+  {
+   "sol": 164,
+   "lmst": "19:11:35",
+   "lsDeg": 81.87,
+   "temperatureK": 221.0,
+   "pressurePa": 749.0,
+   "windSpeedMs": 3.2,
+   "h2oVmrPpm": 30.0
+  },
+  {
+   "sol": 194,
+   "lmst": "16:53:19",
+   "lsDeg": 95.42,
+   "temperatureK": 245.0,
+   "pressurePa": 702.0,
+   "windSpeedMs": 5.8,
+   "h2oVmrPpm": 60.0
+  },
+  {
+   "sol": 196,
+   "lmst": "20:35:07",
+   "lsDeg": 96.4,
+   "temperatureK": 215.0,
+   "pressurePa": 707.0,
+   "windSpeedMs": 2.5,
+   "h2oVmrPpm": 20.0
+  },
+  {
+   "sol": 262,
+   "lmst": "20:22:00",
+   "lsDeg": 127.54,
+   "temperatureK": 221.0,
+   "pressurePa": 643.0,
+   "windSpeedMs": 2.8,
+   "h2oVmrPpm": 50.0
+  },
+  {
+   "sol": 271,
+   "lmst": "20:18:00",
+   "lsDeg": 131.98,
+   "temperatureK": 222.0,
+   "pressurePa": 636.0,
+   "windSpeedMs": 2.7,
+   "h2oVmrPpm": 50.0
+  },
+  {
+   "sol": 298,
+   "lmst": "17:22:56",
+   "lsDeg": 145.62,
+   "temperatureK": 246.0,
+   "pressurePa": 608.0,
+   "windSpeedMs": 6.0,
+   "h2oVmrPpm": 120.0
+  },
+  {
+   "sol": 312,
+   "lmst": "15:00:00",
+   "lsDeg": 153.5,
+   "temperatureK": 242.0,
+   "pressurePa": 620.0,
+   "windSpeedMs": 6.0,
+   "h2oVmrPpm": 80.0
+  },
+  {
+   "sol": 313,
+   "lmst": "13:08:00",
+   "lsDeg": 154.1,
+   "temperatureK": 248.0,
+   "pressurePa": 612.0,
+   "windSpeedMs": 22.0,
+   "h2oVmrPpm": 85.0
+  },
+  {
+   "sol": 337,
+   "lmst": "19:25:37",
+   "lsDeg": 166.59,
+   "temperatureK": 223.0,
+   "pressurePa": 642.0,
+   "windSpeedMs": 3.0,
+   "h2oVmrPpm": 50.0
+  },
+  {
+   "sol": 371,
+   "lmst": "19:21:57",
+   "lsDeg": 186.04,
+   "temperatureK": 227.0,
+   "pressurePa": 672.0,
+   "windSpeedMs": 3.1,
+   "h2oVmrPpm": 50.0
+  },
+  {
+   "sol": 377,
+   "lmst": "21:12:02",
+   "lsDeg": 189.64,
+   "temperatureK": 215.0,
+   "pressurePa": 669.0,
+   "windSpeedMs": 2.4,
+   "h2oVmrPpm": 40.0
+  },
+  {
+   "sol": 490,
+   "lmst": "21:23:31",
+   "lsDeg": 261.36,
+   "temperatureK": 208.0,
+   "pressurePa": 817.0,
+   "windSpeedMs": 2.2,
+   "h2oVmrPpm": 23.0
+  },
+  {
+   "sol": 495,
+   "lmst": "21:22:05",
+   "lsDeg": 264.61,
+   "temperatureK": 210.0,
+   "pressurePa": 808.0,
+   "windSpeedMs": 2.3,
+   "h2oVmrPpm": 40.0
+  },
+  {
+   "sol": 499,
+   "lmst": "20:14:37",
+   "lsDeg": 267.17,
+   "temperatureK": 213.0,
+   "pressurePa": 798.0,
+   "windSpeedMs": 2.6,
+   "h2oVmrPpm": 40.0
+  },
+  {
+   "sol": 509,
+   "lmst": "20:57:08",
+   "lsDeg": 273.65,
+   "temperatureK": 212.0,
+   "pressurePa": 800.0,
+   "windSpeedMs": 2.5,
+   "h2oVmrPpm": 25.0
+  },
+  {
+   "sol": 516,
+   "lmst": "20:27:20",
+   "lsDeg": 278.13,
+   "temperatureK": 214.0,
+   "pressurePa": 797.0,
+   "windSpeedMs": 2.7,
+   "h2oVmrPpm": 40.0
+  },
+  {
+   "sol": 575,
+   "lmst": "19:39:58",
+   "lsDeg": 314.59,
+   "temperatureK": 218.0,
+   "pressurePa": 750.0,
+   "windSpeedMs": 3.0,
+   "h2oVmrPpm": 50.0
+  },
+  {
+   "sol": 586,
+   "lmst": "19:16:39",
+   "lsDeg": 321.03,
+   "temperatureK": 226.0,
+   "pressurePa": 722.0,
+   "windSpeedMs": 3.4,
+   "h2oVmrPpm": 60.0
+  },
+  {
+   "sol": 619,
+   "lmst": "19:53:14",
+   "lsDeg": 339.68,
+   "temperatureK": 225.0,
+   "pressurePa": 725.0,
+   "windSpeedMs": 3.1,
+   "h2oVmrPpm": 60.0
+  },
+  {
+   "sol": 631,
+   "lmst": "18:16:17",
+   "lsDeg": 346.15,
+   "temperatureK": 237.0,
+   "pressurePa": 701.0,
+   "windSpeedMs": 4.2,
+   "h2oVmrPpm": 90.0
+  },
+  {
+   "sol": 634,
+   "lmst": "22:16:11",
+   "lsDeg": 347.85,
+   "temperatureK": 210.0,
+   "pressurePa": 722.0,
+   "windSpeedMs": 2.1,
+   "h2oVmrPpm": 30.0
+  },
+  {
+   "sol": 639,
+   "lmst": "21:30:01",
+   "lsDeg": 350.49,
+   "temperatureK": 211.0,
+   "pressurePa": 727.0,
+   "windSpeedMs": 2.3,
+   "h2oVmrPpm": 50.0
+  }
+ ]
+}

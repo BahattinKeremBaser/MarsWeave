@@ -1,0 +1,42 @@
+{
+ "source": "Published values (not read from PDS data files): Hassler et al. 2014; Guo et al. 2015; Da Pieve et al. 2021",
+ "citation": "Hassler, D. M., et al. (2014), Science 343, 1244797, doi:10.1126/science.1244797; Guo, J., et al. (2015), ApJ 810, 24; Da Pieve, F., Guo, J., et al. (2021), JGR Planets 126, e2020JE006488",
+ "license": "Published literature values (cite the papers)",
+ "retrievedUtc": "2026-11-14T11:12:26Z",
+ "kind": "published_literature",
+ "doseEquivMicroSvPerH": 26.67,
+ "doseEquivMilliSvPerDay": 0.64,
+ "solarMaxMicroSvPerH": 20.78,
+ "solarMinMicroSvPerH": 31.08,
+ "scopeNote": "GALE REFERENCE, PUBLISHED VALUE - not measured at Arcadia",
+ "series": [
+  {
+   "period": "2012-08_to_2013-06_Sols_1_300",
+   "regime": "GCR_Surface_Mean",
+   "doseEquivalentRate_uSv_h": 26.67,
+   "doseEquivalentRate_uSv_day": 640.0,
+   "absorbedDoseRate_uGy_day": 210.0
+  },
+  {
+   "period": "2012_2014_MY31_32",
+   "regime": "GCR_Surface_Diurnal_Tide_Mean",
+   "doseEquivalentRate_uSv_h": 27.5,
+   "absorbedDoseRate_uGy_day": 220.0,
+   "diurnalPeakToPeak_uGy_day": 15.0
+  },
+  {
+   "period": "7yr_RAD_Solar_Max_SSN97p8",
+   "regime": "GCR_Solar_Maximum",
+   "doseEquivalentRate_uSv_h": 20.78,
+   "doseEquivalentRate_uSv_day": 498.7,
+   "absorbedDoseRate_uGy_day": 207.8
+  },
+  {
+   "period": "7yr_RAD_Solar_Min_SSN1p3",
+   "regime": "GCR_Solar_Minimum",
+   "doseEquivalentRate_uSv_h": 31.08,
+   "doseEquivalentRate_uSv_day": 745.9,
+   "absorbedDoseRate_uGy_day": 310.8
+  }
+ ]
+}

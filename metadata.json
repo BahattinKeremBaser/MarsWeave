@@ -1,0 +1,8 @@
+{
+  "name": "Remix MARSWEAVE",
+  "description": "Intelligent EVA Planning and Multi-Objective Mission Discovery for the Red Planet",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

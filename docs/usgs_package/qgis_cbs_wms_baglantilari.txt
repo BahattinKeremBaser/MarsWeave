@@ -1,0 +1,26 @@
+USGS & NASA MARS CBS (GIS) BAĞLANTI VE SERVİS ADRESLERİ
+======================================================
+
+1. Lunaserv WMS Servisi (QGIS / ArcGIS Pro WMS Bağlantısı)
+   URL: https://webmap.lroc.asu.edu/?BODY=mars&SERVICE=WMS&REQUEST=GetCapabilities
+   Not: BODY=mars parametresi ile Mars katmanlarını doğrudan CBS yazılımınıza ekleyebilirsiniz.
+
+2. ArcGIS Online Mars Küresel Jeoloji Katmanı (USGS SIM 3292 - 1:20,000,000)
+   URL: https://www.arcgis.com/home/item.html?id=db11006b3fc44be7bc6d1e7670751e1b
+   DOI: https://dx.doi.org/10.3133/sim3292
+
+3. USGS-NASA Planetary Geologic Mapping GIS Hub - Mars Etkileşimli Haritalar
+   URL: https://astrogeology-usgs.hub.arcgis.com/pages/interactive-maps-mars
+
+4. USGS Gazetteer Mars Resmi Yüzey Şekli İsimleri (Shapefile ve KML)
+   İndirme Sayfası: https://planetarynames.wr.usgs.gov/GIS_Downloads
+   Mars Hedef Sayfası: https://planetarynames.wr.usgs.gov/Page/MARS/target
+   Dosya Adı: MARS_nomenclature.zip (Doğu boylamı, planetocentric enlem)
+
+5. PDS Geosciences Node - Mars Orbital Data Explorer (ODE)
+   Harita ve Ürün Arama: https://ode.rsl.wustl.edu/mars/productsearch
+   Kapsanan Görevler: MRO (HiRISE, CTX, CRISM, SHARAD, MCS), 2001 Mars Odyssey (THEMIS), Mars Global Surveyor (MOLA, MOC), Viking Orbiter 1-2, Mars Express, ExoMars TGO.
+
+6. ASU Mars Global Data Access
+   Portal: https://global-data.mars.asu.edu/
+   Veri Setleri: Viking, MOC, THEMIS, CTX, HiRISE, CRISM, OMEGA, HRSC/SRC.
