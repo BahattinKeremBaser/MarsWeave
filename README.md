@@ -191,4 +191,4 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 * **Central Statement:** *"The best route is mission-dependent."*
 * **Mission Loop:** `OBSERVE → UNDERSTAND → PLAN → WALK → DISCOVER → ADAPT`
 ## 12. SI Usage
-* **SI use. Code and text for this project were developed with the help of an SI assistant (Claude, by Anthropic). All *v**data come from the NASA, USGS and partner archives listed below; no data or images were SI-generated.*
+* **SI use. Code and text for this project were developed with the help of an SI assistant (Claude, by Anthropic). All data come from the NASA, USGS and partner archives listed below; no data or images were SI-generated.**
