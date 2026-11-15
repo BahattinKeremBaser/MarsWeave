@@ -140,22 +140,16 @@ export default function App() {
     if (selectedRoute.waypoints.length === 0) return startPoint;
     if (currentElapsedSec <= 0) return [selectedRoute.waypoints[0].x, selectedRoute.waypoints[0].y];
 
-    const progressRatio = Math.min(1, currentElapsedSec / totalDurationSec);
-    const targetIdx = progressRatio * (selectedRoute.waypoints.length - 1);
-    const baseIdx = Math.floor(targetIdx);
-    const fract = targetIdx - baseIdx;
-
-    if (baseIdx >= selectedRoute.waypoints.length - 1) {
-      const last = selectedRoute.waypoints[selectedRoute.waypoints.length - 1];
-      return [last.x, last.y];
-    }
-
-    const p1 = selectedRoute.waypoints[baseIdx];
-    const p2 = selectedRoute.waypoints[baseIdx + 1];
-
-    const curX = p1.x + (p2.x - p1.x) * fract;
-    const curY = p1.y + (p2.y - p1.y) * fract;
-    return [curX, curY];
+    // Position by elapsed time along the legs (each leg has its own pace), not by waypoint index.
+    const wps = selectedRoute.waypoints;
+    const tMin = Math.min(currentElapsedSec / 60, wps[wps.length - 1].cumulativeTimeMin);
+    let j = 1;
+    while (j < wps.length - 1 && wps[j].cumulativeTimeMin < tMin) j++;
+    const p1 = wps[j - 1];
+    const p2 = wps[j];
+    const span = p2.cumulativeTimeMin - p1.cumulativeTimeMin;
+    const fract = span > 0 ? Math.min(1, Math.max(0, (tMin - p1.cumulativeTimeMin) / span)) : 1;
+    return [p1.x + (p2.x - p1.x) * fract, p1.y + (p2.y - p1.y) * fract];
   }, [selectedRoute.waypoints, startPoint, currentElapsedSec, totalDurationSec]);
 
   /**

@@ -271,12 +271,13 @@ export class MinHeap<T> {
 /**
  * Multi-objective A* algorithm finding optimal route on discrete grid.
  */
-function runAStar(
+function searchAStar(
   startGrid: GridNode,
   goalGrid: GridNode,
   weights: CostWeights,
-  waypointBiases: GridNode[] = []
-): GridNode[] {
+  waypointBiases: GridNode[],
+  slopeCapDeg: number
+): GridNode[] | null {
   const cols = GRID_COLS;
   const rows = GRID_ROWS;
 
@@ -291,7 +292,7 @@ function runAStar(
   function heuristic(node: GridNode): number {
     const dx = node.c - goalGrid.c;
     const dy = node.r - goalGrid.r;
-    let baseH = Math.hypot(dx, dy);
+    let baseH = Math.hypot(dx * CELL_METERS_X, dy * CELL_METERS_Y) / CELL_METERS_X;
 
     // If waypoint bias exists (e.g. for Route B intermediate science targets)
     if (waypointBiases.length > 0) {
@@ -309,19 +310,21 @@ function runAStar(
   fScore[startGrid.r][startGrid.c] = heuristic(startGrid);
   open.push(startGrid, fScore[startGrid.r][startGrid.c]);
 
+  // Step lengths in true metres (cells are not exactly square), in units of one cell width
+  const len = (dc: number, dr: number) => Math.hypot(dc * CELL_METERS_X, dr * CELL_METERS_Y) / CELL_METERS_X;
   const neighbors = [
-    { dc: 1, dr: 0, cost: 1.0 },
-    { dc: -1, dr: 0, cost: 1.0 },
-    { dc: 0, dr: 1, cost: 1.0 },
-    { dc: 0, dr: -1, cost: 1.0 },
-    { dc: 1, dr: 1, cost: 1.414 },
-    { dc: -1, dr: 1, cost: 1.414 },
-    { dc: 1, dr: -1, cost: 1.414 },
-    { dc: -1, dr: -1, cost: 1.414 }
+    { dc: 1, dr: 0, cost: len(1, 0) },
+    { dc: -1, dr: 0, cost: len(1, 0) },
+    { dc: 0, dr: 1, cost: len(0, 1) },
+    { dc: 0, dr: -1, cost: len(0, 1) },
+    { dc: 1, dr: 1, cost: len(1, 1) },
+    { dc: -1, dr: 1, cost: len(1, 1) },
+    { dc: 1, dr: -1, cost: len(1, 1) },
+    { dc: -1, dr: -1, cost: len(1, 1) }
   ];
 
   let iterations = 0;
-  const maxIterations = 3500;
+  const maxIterations = 60000; // the grid has 2,500 cells; the cap only guards against runaway loops
 
   while (open.size > 0 && iterations < maxIterations) {
     const popped = open.pop()!;
@@ -349,7 +352,9 @@ function runAStar(
 
       const slope = ARCADIA_SLOPE_GRID[nr][nc];
       // Hard avoidance if slope exceeds max physical traction limit
-      if (slope > weights.maxSlopeAllowed) continue;
+      // The chosen destination itself is always enterable. The steepest slope on the route is reported either way.
+      const isGoal = nc === goalGrid.c && nr === goalGrid.r;
+      if (slope > slopeCapDeg && !isGoal) continue;
 
       const hazard = ARCADIA_HAZARD_GRID[nr][nc];
       const iceConfidence = ARCADIA_ICE_GRID[nr][nc];
@@ -396,15 +401,33 @@ function runAStar(
     }
   }
 
-  // Fallback direct line if graph search exhausted or if start equals goal
+  return null; // goal not reachable under this slope cap
+}
+
+/**
+ * Finds the route on the grid. Every route uses the same search; only the cost weights differ.
+ * If the goal cannot be reached under the profile's slope limit (it is enclosed by steeper ground), the cap is relaxed
+ * step by step and the route's real steepest slope is reported, instead of silently drawing a straight line.
+ */
+function runAStar(
+  startGrid: GridNode,
+  goalGrid: GridNode,
+  weights: CostWeights,
+  waypointBiases: GridNode[] = []
+): GridNode[] {
   if (startGrid.c === goalGrid.c && startGrid.r === goalGrid.r) {
     const fallbackGoal: GridNode = {
-      c: Math.min(cols - 1, startGrid.c + (startGrid.c > cols / 2 ? -2 : 2)),
-      r: Math.min(rows - 1, startGrid.r + (startGrid.r > rows / 2 ? -2 : 2))
+      c: Math.min(GRID_COLS - 1, startGrid.c + (startGrid.c > GRID_COLS / 2 ? -2 : 2)),
+      r: Math.min(GRID_ROWS - 1, startGrid.r + (startGrid.r > GRID_ROWS / 2 ? -2 : 2))
     };
     return [startGrid, fallbackGoal];
   }
-  return [startGrid, goalGrid];
+  const caps = [weights.maxSlopeAllowed, (Math.atan(GRADIENT_LIMIT) * 180) / Math.PI, Infinity];
+  for (const cap of caps) {
+    const path = searchAStar(startGrid, goalGrid, weights, waypointBiases, cap);
+    if (path) return path;
+  }
+  return [startGrid, goalGrid]; // not reachable on a connected grid; kept only as a last resort
 }
 
 /**
@@ -426,15 +449,9 @@ function buildWaypointsFromGrid(
     });
   }
 
-  // Downsample nodes so we don't have 40 waypoints, but a clean 8-14 operational leg segments
-  const step = Math.max(1, Math.floor(nodes.length / 10));
-  const sampledNodes: GridNode[] = [];
-  for (let i = 0; i < nodes.length; i += step) {
-    sampledNodes.push(nodes[i]);
-  }
-  if (sampledNodes[sampledNodes.length - 1] !== nodes[nodes.length - 1]) {
-    sampledNodes.push(nodes[nodes.length - 1]);
-  }
+  // One waypoint per grid cell on the path, so distance, time, slope, hazard and comms are measured on the cells the
+  // astronaut actually crosses (an earlier version kept only ~10 points and measured the straight lines between them).
+  const sampledNodes: GridNode[] = nodes.filter((n, i) => i === 0 || n.c !== nodes[i - 1].c || n.r !== nodes[i - 1].r);
   if (sampledNodes.length < 2) {
     sampledNodes.push({
       c: Math.min(GRID_COLS - 1, sampledNodes[0].c + 2),
@@ -612,26 +629,26 @@ function evaluateRouteCandidate(
   }
   hazardsCrossed.sort((p, q) => p.fromM - q.fromM);
 
-  // Dynamic explainable reasons
+  // Explainable reasons: only numbers computed from this route, plus what its weights aim for (no claims about other routes here).
   const whyChosenReasons: string[] = [];
-  if (id === 'ROUTE_A') {
-    whyChosenReasons.push(`Maintains low slope profile (Avg: ${avgSlopeDeg}°, Max: ${maxSlopeDeg}°)`);
-    whyChosenReasons.push(`Reliable communication link (${commsCoveragePct}% average orbiter signal)`);
-    whyChosenReasons.push(`Passes ${visitedTargets.length} candidate science site(s) along the traverse`);
-    whyChosenReasons.push(
-      timeBudgetExceededMin > 0
-        ? `EXCEEDS the ${profile.durationMin} min EVA limit by ${timeBudgetExceededMin} min: shorten the route or raise the limit`
-        : `Leaves ${Math.round(profile.durationMin - totalDurationMin)} min safety margin in EVA time budget`
-    );
-  } else if (id === 'ROUTE_B') {
-    whyChosenReasons.push(`Prioritises candidate sites (${visitedTargets.length} visited)`);
-    whyChosenReasons.push(`Extends route toward the highest SWIM2 ice-index cells (map product, ~3 km pixels; not a measurement of local ice)`);
-    whyChosenReasons.push(`Allows more time at candidate sites (stop time is an assumption)`);
-  } else {
-    whyChosenReasons.push(`Shortest geometrical surface distance (${totalDistanceKm} km)`);
-    whyChosenReasons.push(`Fastest transit time (${totalDurationMin} min)`);
-    whyChosenReasons.push(`Direct line retreat path in case of life support contingency`);
-  }
+  const slopeLimit = Math.round(planningSlopeLimitDeg(profile) * 10) / 10;
+  whyChosenReasons.push(
+    `Slope along the route: average ${avgSlopeDeg}°, steepest ${maxSlopeDeg}°` +
+      (maxSlopeDeg > slopeLimit ? ` (above the ${slopeLimit}° walking limit of this profile)` : '')
+  );
+  whyChosenReasons.push(`Relay coverage averages ${commsCoveragePct}% (modelled)`);
+  whyChosenReasons.push(`Passes ${visitedTargets.length} candidate site(s) along the walk`);
+  whyChosenReasons.push(
+    hazardsCrossed.length > 0
+      ? `Runs through ${hazardsCrossed.length} mapped hazard zone(s): ${hazardsCrossed.map(h => h.zoneId).join(', ')}`
+      : 'Does not run through any mapped hazard zone'
+  );
+  whyChosenReasons.push(
+    timeBudgetExceededMin > 0
+      ? `EXCEEDS the ${profile.durationMin} min EVA limit by ${timeBudgetExceededMin} min: shorten the route or raise the limit`
+      : `Leaves ${Math.round(profile.durationMin - totalDurationMin)} min safety margin in EVA time budget`
+  );
+  if (id === 'ROUTE_B') whyChosenReasons.push('Detours through a candidate site to add sampling time (stop time is an assumption)');
 
   return {
     id,
@@ -742,12 +759,12 @@ export function planEvaRoutes(
   // 3. ROUTE C: "Direct / High Risk"
   // Prioritizes pure distance minimization; disregards terrain slope & hazard penalties
   const weightsC: CostWeights = {
-    distanceWeight: 4.0,
-    slopeWeight: 0.4,
-    hazardWeight: 0.3,
-    scienceAttraction: 0.1,
-    iceAttraction: 0.1,
-    commsPenalty: 0.2,
+    distanceWeight: 1.0,
+    slopeWeight: 0,
+    hazardWeight: 0,
+    scienceAttraction: 0,
+    iceAttraction: 0,
+    commsPenalty: 0,
     maxSlopeAllowed: (Math.atan(GRADIENT_LIMIT) * 180) / Math.PI // steepest gradient the cost model covers
   };
   const nodesC = runAStar(startNode, goalNode, weightsC);
@@ -755,7 +772,7 @@ export function planEvaRoutes(
   const routeC = evaluateRouteCandidate(
     'ROUTE_C',
     'Route Gamma',
-    'Direct Transit (High Hazard)',
+    'Direct Transit (shortest distance)',
     'Weights distance only, with a looser slope limit. It is shorter but ignores hazard cells, comms coverage and candidate sites.',
     '#ef4444', // Red
     waypointsC,
@@ -770,6 +787,18 @@ export function planEvaRoutes(
   } else if (profile.riskTolerance === 'HIGH' && profile.durationMin < 75) {
     selected = routeC;
   }
+
+  // Plain comparison lines against Alpha, computed from the numbers (never assumed).
+  const cmp = (r: RouteCandidate) => {
+    if (r === routeA) return;
+    const dKm = Math.round((r.totalDistanceKm - routeA.totalDistanceKm) * 100) / 100;
+    const dMin = Math.round((r.totalDurationMin - routeA.totalDurationMin) * 10) / 10;
+    const part = (v: number, unit: string, more: string, less: string) =>
+      v === 0 ? (unit === 'km' ? 'same distance as Alpha' : 'same time as Alpha') : `${Math.abs(v)} ${unit === 'km' ? 'km' : 'min'} ${v > 0 ? more : less} than Alpha`;
+    r.whyChosenReasons.push(`Compared with Alpha: ${part(dKm, 'km', 'longer', 'shorter')}, ${part(dMin, 'time', 'slower', 'faster')}`);
+  };
+  cmp(routeB);
+  cmp(routeC);
 
   // Say so when two routes follow exactly the same cells, instead of presenting them as different options.
   const key = (n: GridNode[]) => n.map(g => `${g.c},${g.r}`).join(';');

@@ -597,7 +597,11 @@ export const Mars2DViewport: React.FC<Mars2DViewportProps> = ({
           ctx.stroke();
 
           // Waypoint markers along selected route
+          // One waypoint per grid cell on the path: draw a marker (and label) only every few cells, plus both ends.
+          const markEvery = Math.max(1, Math.ceil(route.waypoints.length / 10));
           route.waypoints.forEach((wp, idx) => {
+            const isEnd = idx === 0 || idx === route.waypoints.length - 1;
+            if (!isEnd && idx % markEvery !== 0) return;
             const [wx, wy] = normToScreen(wp.x, wp.y, width, height);
             ctx.fillStyle = '#07090e';
             ctx.strokeStyle = route.color;

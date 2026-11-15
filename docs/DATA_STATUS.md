@@ -65,3 +65,18 @@ Walking power, pace, slope limit, oxygen, battery and heart rate follow publishe
 ## v47
 - The "see the walk through the astronaut's eyes" prompt now appears about 4.5 s after the walk starts (it used to show at once), in 2D and 3D.
 - Easy mode: the "Looking for more? / Switch to Advanced" card is pinned to the bottom of the side panel once a walk has started.
+
+## v48 (route planner fix)
+- Bug: when the destination cell was steeper than the walkable slope limit, the Alpha search could never enter it and fell back to a straight line that ignored the terrain (so Alpha could look shorter than Gamma). The destination cell is now always enterable; the steepest slope on the route is still reported.
+- The search step cap was raised (3,500 to 60,000). Long routes had been cut off before reaching the goal.
+
+## v49 (route planner audit)
+Found while checking why Gamma could be longer than Alpha. All three routes now use the same search and the same measurement.
+- Measurement: routes were reduced to about 10 waypoints and distance, time, slope and hazard were measured on the straight lines between them. Every grid cell on the path is now a waypoint, so the numbers are measured on the cells actually crossed.
+- Gamma (direct) now weights distance only (before it still carried slope, hazard and comms terms). Gamma is therefore the shortest path on the grid by construction. Alpha balances several terms, Beta detours through a candidate site.
+- If a goal cannot be reached under the profile's slope limit, the limit is relaxed step by step and the route reports its real steepest slope ("above the N degree walking limit"). No more silent straight-line fallback.
+- Step lengths use true cell sizes in metres.
+- Route reasons are computed from the route's own numbers; the old fixed claims ("shortest", "fastest", "direct retreat path") are gone. Beta/Gamma get a line comparing them with Alpha.
+- The astronaut position follows elapsed time along the legs (it used to follow waypoint index).
+- Checked over 270 start/goal/risk/objective combinations: no straight-line fallbacks, every route ends at its goal, Gamma is never longer than Alpha or Beta.
+- Default trip (Habitat Alpha to SCI-04): Alpha 3.51 km / 87.9 min, Beta 8.18 km / 242.3 min, Gamma 3.51 km / 87.9 min.
